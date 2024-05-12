@@ -25,6 +25,8 @@ export default async function Home() {
               }
             />
           ))}
+        </div>
+        <div className="flex flex-row-reverse">
           <AddDanceForm />
         </div>
       </main>

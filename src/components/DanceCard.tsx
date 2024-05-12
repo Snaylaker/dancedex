@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteDance } from "@/actions/DeleteDance";
+import { Button } from "./ui/button";
 
 export function DanceCard({
   title,
@@ -24,12 +25,7 @@ export function DanceCard({
         <p className="text-base text-gray-700">{description}</p>
       </div>
       <div className="px-6 py-4">
-        <button
-          onClick={() => deleteDance(id)}
-          className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-        >
-          Read More
-        </button>
+        <Button onClick={() => deleteDance(id)}>Supprimer la video</Button>
       </div>
     </div>
   );
