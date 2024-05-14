@@ -1,13 +1,14 @@
-import { supabase } from "@/db/supabase";
 import { DanceCard } from "@/components/DanceCard";
-import { getDances } from "@/queries/GetDances";
 import AddDanceForm from "@/components/AddDanceForm";
+import { db } from "@/db/drizzle";
+import { dances } from "../../drizzle/schema";
+import supabase from "@/db/supabase";
 
 export default async function Home() {
-  const data = await getDances();
+  const data = await db.select().from(dances);
   return (
     <div className="flex min-h-screen flex-col gap-7 bg-gray-100">
-      <header className="bg-blue-600 p-4 text-white">
+      <header className="bg-black p-4 text-white">
         <h1 className="m-a text-xl font-bold">DanceDex</h1>
       </header>
       <main className="mx-auto flex max-w-screen-xl flex-col gap-4">
@@ -16,7 +17,7 @@ export default async function Home() {
             <DanceCard
               key={element.id}
               id={element.id}
-              title={element.name!}
+              title={element.title!}
               description="description"
               videoUrl={
                 supabase.storage

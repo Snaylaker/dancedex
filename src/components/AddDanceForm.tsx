@@ -1,7 +1,6 @@
 "use client";
 
-import { AddDance } from "@/actions/AddDance";
-import { Label } from "@radix-ui/react-label";
+import { addDance } from "@/actions/AddDance";
 import { Button } from "./ui/button";
 import {
   Dialog,
@@ -13,12 +12,22 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import { Input } from "./ui/input";
+import { useFormState } from "react-dom";
+import { Label } from "./ui/label";
+import { useState } from "react";
+
+const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
 
 export default function AddDanceForm() {
+  const [response, formAction, isPending] = useFormState(addDance, null);
+  const [open, setOpen] = useState(false);
+  console.log(isPending);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Ajouter une nouvelle danse</Button>
+        <Button disabled={isPending} variant="outline">
+          Ajouter une nouvelle danse
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -27,19 +36,20 @@ export default function AddDanceForm() {
             Enregister une nouvelle video de danse
           </DialogDescription>
         </DialogHeader>
-        <form action={AddDance}>
+        <form
+          action={formAction}
+          onSubmit={(event) => {
+            wait().then(() => setOpen(false));
+          }}
+        >
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Séléctionner une video
-              </Label>
-              <Input id="name" value="Pedro Duarte" className="col-span-3" />
+              <Label className="text-right">Nom de la video</Label>
+              <Input name="title" className="col-span-3" />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Nom de la video
-              </Label>
-              <Input id="username" value="@peduarte" className="col-span-3" />
+              <Label className="text-right">Séléctionner une video</Label>
+              <Input name="video" type="file" className="col-span-3" />
             </div>
           </div>
           <DialogFooter>
