@@ -1,4 +1,4 @@
-import AddDanceForm from './AddDanceForm'
+import AddDance from "./addDance";
 
 export default function NoContent() {
   return (
@@ -19,9 +19,9 @@ export default function NoContent() {
         />
       </svg>
       <h3 className="mt-2 text-sm font-semibold text-gray-900">Aucune video trouvée</h3>
-      <p className="mt-1 text-sm text-gray-500">Essayer d'importer une video pour commencer</p>
+      <p className="mt-1 text-sm text-gray-500">Essayer d&apos;importer une video pour commencer</p>
       <div className="mt-6">
-        <AddDanceForm />
+        <AddDance />
       </div>
     </div>
   )
