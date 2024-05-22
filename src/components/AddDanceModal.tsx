@@ -19,14 +19,14 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
 
-export function SubmitButton() {
+function SubmitButton() {
   const { pending } = useFormStatus()
   return (
     <Button type="submit" disabled={pending}>Enregistrer la danse</Button>
   )
 }
 
-export default function AddDanceModal() {
+export default function AddDanceForm() {
   const [open, setOpen] = useState(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>

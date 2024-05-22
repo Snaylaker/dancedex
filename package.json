@@ -10,6 +10,8 @@
     "generate": "drizzle-kit introspect:pg  "
   },
   "dependencies": {
+    "@headlessui/react": "^2.0.3",
+    "@heroicons/react": "^2.1.3",
     "@hookform/resolvers": "^3.3.3",
     "@next/env": "^14.2.3",
     "@radix-ui/react-dialog": "^1.0.5",
