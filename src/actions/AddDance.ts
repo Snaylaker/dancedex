@@ -1,26 +1,35 @@
 "use server";
-import { db } from "@/db/drizzle";
 import { revalidateTag } from "next/cache";
-import { dances, users } from "../../drizzle/schema";
-import { eq } from "drizzle-orm";
-import supabase from "@/db/supabase";
+import { dances } from "../../drizzle/schema";
+import { createClient } from "@/utils/supabase/server";
+import { db } from "@/utils/drizzle/client";
+import { getFileStorageUrl } from "@/utils/utils";
 
-//@ts-ignore
-export async function addDance(_, values: FormData) {
+export async function addDance(values: FormData) {
   const video = values.get("video");
   const title = values.get("title") as string;
-  if (video instanceof File) {
-    await supabase.storage.from("dances").upload("public/" + video.name, video);
-    const userId = await db
-      .select({ field1: users.id })
-      .from(users)
-      .where(eq(users.name, "mehdi"));
-    await db
-      .insert(dances)
-      .values({ title: title, fileName: video.name, userId: userId[0].field1 });
-    revalidateTag("/");
-    return "done";
-  } else {
-    console.log("im loooooooost error");
-  }
+  const description = values.get("description") as string;
+
+  const supabase = createClient();
+
+  const user = await supabase.auth.getUser();
+  const userId = user.data.user?.id;
+
+  //@ts-ignore
+  const filePath = getFileStorageUrl(userId, video.name);
+
+  //@ts-ignore
+  await createClient().storage.from("dances").upload(filePath, video);
+
+  await db
+    .insert(dances)
+    //@ts-ignore
+    .values({
+      title: title,
+      //@ts-ignore
+      fileName: video.name,
+      userId: userId,
+      description: description,
+    });
+  revalidateTag("/");
 }

@@ -1,36 +1,25 @@
-import { DanceCard } from "@/components/DanceCard";
-import AddDanceForm from "@/components/AddDanceForm";
-import { db } from "@/db/drizzle";
-import { dances } from "../../drizzle/schema";
-import supabase from "@/db/supabase";
+import signIn from "@/actions/SignIn"
+import { Button } from "@/components/ui/button"
 
-export default async function Home() {
-  const data = await db.select().from(dances);
+export default function Example() {
   return (
-    <div className="flex min-h-screen flex-col gap-7 bg-gray-100">
-      <header className="bg-black p-4 text-white">
-        <h1 className="m-a text-xl font-bold">DanceDex</h1>
-      </header>
-      <main className="mx-auto flex max-w-screen-xl flex-col gap-4">
-        <div className="flex flex-row flex-wrap gap-10">
-          {data.map((element) => (
-            <DanceCard
-              key={element.id}
-              id={element.id}
-              title={element.title!}
-              description="description"
-              videoUrl={
-                supabase.storage
-                  .from("dances")
-                  .getPublicUrl("public/" + element.fileName).data.publicUrl
-              }
-            />
-          ))}
+    <div className="h-full ">
+      <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            DanceDex never forget your moves
+          </h2>
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-slate-200">
+            Avec DanceDex, vous pouvez enregistrer passes et les retrouver plus tard.
+
+          </p>
+          <div className="mt-10 flex items-center justify-center gap-x-6">
+            <form action={signIn}>
+              <Button >Connecte toi avec google</Button>
+            </form>
+          </div>
         </div>
-        <div className="flex flex-row-reverse">
-          <AddDanceForm />
-        </div>
-      </main>
+      </div>
     </div>
-  );
+  )
 }
