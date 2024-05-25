@@ -6,7 +6,7 @@ import { db } from "@/utils/drizzle/client";
 import { getFileStorageUrl } from "@/utils/utils";
 
 export async function addDance(values: FormData) {
-  const video = values.get("video");
+  const video = values.get("video") as File;
   const title = values.get("title") as string;
   const description = values.get("description") as string;
 
@@ -18,18 +18,13 @@ export async function addDance(values: FormData) {
   //@ts-ignore
   const filePath = getFileStorageUrl(userId, video.name);
 
-  //@ts-ignore
   await createClient().storage.from("dances").upload(filePath, video);
 
-  await db
-    .insert(dances)
-    //@ts-ignore
-    .values({
-      title: title,
-      //@ts-ignore
-      fileName: video.name,
-      userId: userId,
-      description: description,
-    });
+  await db.insert(dances).values({
+    title: title,
+    fileName: video.name,
+    userId: userId,
+    description: description,
+  });
   revalidateTag("/");
 }
