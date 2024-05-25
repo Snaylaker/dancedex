@@ -1,6 +1,5 @@
 "use client";
 
-import { addDance } from "@/actions/AddDance";
 import { useFormStatus } from "react-dom";
 import { useState } from "react";
 import { PlusIcon } from "lucide-react";
@@ -9,6 +8,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { toast } from "@/components/ui/use-toast";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { addDance } from "@/actions/addDance";
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
 

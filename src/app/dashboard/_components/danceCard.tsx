@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { deleteDance } from "@/actions/DeleteDance";
-import { editDance } from "@/actions/EditDance";
 import { toast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { editDance } from "@/actions/editDance";
+import { deleteDance } from "@/actions/deleteDance";
 
 export function DanceCard({
   title,
@@ -51,14 +51,14 @@ export function DanceCard({
   const handleDelete = async () => {
     setIsProcessing(true);
     await deleteDance(id);
+    setIsProcessing(false);
     toast({
       description: "La video a été suprimée",
     })
-    setIsProcessing(false);
   };
 
   return (
-    <div className="my-8 min-h-96 max-w-96 rounded-lg bg-white shadow-lg">
+    <div className="my-4 min-h-96 max-w-96 rounded-lg bg-white shadow-lg">
       <video controls className="w-full rounded-t-lg">
         <source src={videoUrl} type="video/mp4" />
         Your browser does not support the video tag.

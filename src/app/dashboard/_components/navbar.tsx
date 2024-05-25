@@ -1,19 +1,19 @@
 "use client"
+
 import { useState } from 'react'
-import { Menu as MenuIcon, Bell, X, LogOutIcon } from 'lucide-react'
-import { UserMetadata } from '@supabase/supabase-js'
+import { Menu as MenuIcon, LogOutIcon, X } from 'lucide-react'
+import { User } from '@supabase/supabase-js'
 import AddDance from './addDance'
 import { Button } from '@/components/ui/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import signOut from '@/actions/SignOut'
+import signOut from '@/actions/signOut'
 
 const navigation = [
-  { name: 'DanceDex', href: '/', current: true },
+  { name: 'DanceDex', href: '/dashboard', current: true },
 ]
 
-//@ts-ignore
-export default function NavBar({ user }: { user: UserMetadata }) {
+export default function NavBar({ user }: { user: User }) {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
@@ -50,9 +50,7 @@ export default function NavBar({ user }: { user: UserMetadata }) {
             </div>
           </div>
           <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <AddDance />
-            </div>
+            <AddDance />
             <div className="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -65,6 +63,7 @@ export default function NavBar({ user }: { user: UserMetadata }) {
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent >
+                  <DropdownMenuLabel>{user.email}</DropdownMenuLabel>
                   <DropdownMenuItem  >
                     <form action={signOut}>
                       <Button variant="ghost" size={"sm"}>

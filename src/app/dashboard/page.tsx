@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import { SelectDance, dances } from "../../../drizzle/schema";
+import { dances } from "../../../drizzle/schema";
 import { redirect } from "next/navigation";
 import { db } from "@/utils/drizzle/client";
 import { createClient } from "@/utils/supabase/server";
@@ -15,7 +15,10 @@ export default async function Home() {
     redirect("/")
   }
 
-  const dancesList = await db.select().from(dances).where(eq(dances.userId, data.user.id)).orderBy(dances.createdAt)
+  const dancesList = await db.select()
+    .from(dances)
+    .where(eq(dances.userId, data.user.id))
+    .orderBy(dances.createdAt)
 
   return <>
     <Navbar user={data.user} />
