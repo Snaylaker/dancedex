@@ -1,7 +1,15 @@
 import signIn from "@/actions/SignIn"
 import { Button } from "@/components/ui/button"
+import { createClient } from "@/utils/supabase/server"
+import { redirect } from "next/navigation"
 
-export default function Example() {
+export default async function Example() {
+  const supabase = createClient()
+  const isLoggedIn = await supabase.auth.getUser()
+  if (isLoggedIn) {
+    redirect("/dashboard")
+  }
+
   return (
     <div className="h-full ">
       <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
