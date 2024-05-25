@@ -13,9 +13,12 @@ export async function addDance(values: FormData) {
   const supabase = createClient();
 
   const user = await supabase.auth.getUser();
-  const userId = user.data.user?.id;
+  const userId = user.data.user.id;
 
-  //@ts-ignore
+  if (!userId) {
+    return "error";
+  }
+
   const filePath = getFileStorageUrl(userId, video.name);
 
   await createClient().storage.from("dances").upload(filePath, video);
