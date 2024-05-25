@@ -13,7 +13,7 @@ export async function addDance(values: FormData) {
   const supabase = createClient();
 
   const user = await supabase.auth.getUser();
-  const userId = user.data.user.id;
+  const userId = user.data.user?.id;
 
   if (!userId) {
     return "error";
