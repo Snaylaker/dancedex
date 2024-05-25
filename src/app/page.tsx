@@ -1,14 +1,7 @@
 import signIn from "@/actions/SignIn"
 import { Button } from "@/components/ui/button"
-import { createClient } from "@/utils/supabase/server"
-import { redirect } from "next/navigation"
 
-export default async function Example() {
-  const supabase = createClient()
-  const isLoggedIn = await supabase.auth.getUser()
-  if (isLoggedIn) {
-    redirect("/dashboard")
-  }
+export default function Example() {
 
   return (
     <div className="h-full ">
