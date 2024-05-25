@@ -1,12 +1,12 @@
 "use client"
 import { useState } from 'react'
-import { Menu as MenuIcon, Bell, X, LogOutIcon } from 'lucide-react'
+import { Menu as MenuIcon, X, LogOutIcon } from 'lucide-react'
 import { UserMetadata } from '@supabase/supabase-js'
 import AddDance from './addDance'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import signOut from '@/actions/SignOut'
+import signOut from '@/actions/signOut'
 
 const navigation = [
   { name: 'DanceDex', href: '/', current: true },
