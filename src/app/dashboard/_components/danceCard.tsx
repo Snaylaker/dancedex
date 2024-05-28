@@ -4,9 +4,11 @@ import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
 import { editDance } from "@/actions/editDance";
 import { deleteDance } from "@/actions/deleteDance";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { PencilIcon, TrashIcon, XIcon } from "lucide-react";
 
 export function DanceCard({
   title,
@@ -24,26 +26,19 @@ export function DanceCard({
   const [editDescription, setEditDescription] = useState(description);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
-
+  const handleEdit = () => setIsEditing(true);
   const handleCancel = () => {
     setIsEditing(false);
-    setEditTitle(title); // Reset to initial title
-    setEditDescription(description); // Reset to initial description
+    setEditTitle(title);
+    setEditDescription(description);
   };
 
-  //@ts-ignore
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const form = event.target;
-    const formData = new FormData(form);
+    const formData = new FormData(event.target as HTMLFormElement);
     setIsProcessing(true);
     await editDance(formData);
-    toast({
-      description: "Les informations ont été mises à jour",
-    })
+    toast({ description: "Les informations ont été mises à jour" });
     setIsProcessing(false);
     setIsEditing(false);
   };
@@ -52,65 +47,67 @@ export function DanceCard({
     setIsProcessing(true);
     await deleteDance(id);
     setIsProcessing(false);
-    toast({
-      description: "La video a été suprimée",
-    })
+    toast({ description: "La video a été suprimée" });
   };
 
   return (
-    <div className="my-4 min-h-96 max-w-96 rounded-lg bg-white shadow-lg">
-      <video controls className="w-full rounded-t-lg">
-        <source src={videoUrl} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <div className="flex flex-col space-y-4  px-6 py-4">
-        <div className="flex flex-col space-y-10 min-h-50">
-          {isEditing ? (
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col gap-2"
-            >
-              <input type="hidden" name="id" value={id} />
-              <Input
-                type="text"
-                name="title"
-                required
-                value={editTitle}
-                onChange={(e) => setEditTitle(e.target.value)}
-                className="text-xl font-bold"
-                disabled={isProcessing}
-              />
-              <Textarea
-                name="description"
-                value={editDescription}
-                required
-                onChange={(e) => setEditDescription(e.target.value)}
-                className="text-base text-gray-700"
-                disabled={isProcessing}
-              />
-              <div className="flex justify-between">
-                <Button type="submit" disabled={isProcessing}>Save</Button>
-                <Button variant="secondary" onClick={handleCancel} disabled={isProcessing}>
-                  Cancel
-                </Button>
-              </div>
-            </form>
-          ) : (
-            <>
-              <div>
-                <div className="text-xl font-bold">{title}</div>
-                <p className="text-base h-12 text-gray-700">{description}</p>
-              </div>
-              <div className="flex justify-between">
-                <Button onClick={handleEdit} disabled={isProcessing}>Modifier</Button>
-                <Button variant="secondary" onClick={handleDelete} disabled={isProcessing}>
-                  Supprimer
-                </Button>
-              </div>
-            </>
-          )}
-        </div>
+    <Card className="w-full max-w-md">
+      <div className="aspect-video overflow-hidden rounded-t-lg">
+        <video controls className="w-full rounded-t-lg">
+          <source src={videoUrl} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
-    </div>
+      <CardContent className="space-y-4 pt-4 min-h-48">
+        <div className="flex items-center justify-between">
+          <div className="space-y-1">
+            <div className="flex items-center justify-between">
+              {isEditing ? (
+                <form onSubmit={handleSubmit} className="flex flex-col flex-1 justify-between">
+                  <input type="hidden" name="id" value={id} />
+                  <Input
+                    type="text"
+                    name="title"
+                    required
+                    value={editTitle}
+                    onChange={(e) => setEditTitle(e.target.value)}
+                    className="text-lg font-medium"
+                    disabled={isProcessing}
+                  />
+                  <Textarea
+                    name="description"
+                    value={editDescription}
+                    required
+                    onChange={(e) => setEditDescription(e.target.value)}
+                    className="text-sm text-gray-500 dark:text-gray-400"
+                  />
+                  <div className="flex justify-end">
+                    <Button size="sm" onClick={handleSubmit} disabled={isProcessing}>
+                      <span className="sr-only">Save title</span>
+                    </Button>
+                    <Button size="sm" variant="secondary" onClick={handleCancel} disabled={isProcessing}>
+                      <XIcon className="h-5 w-5" />
+                      <span className="sr-only">Cancel editing</span>
+                    </Button>
+                  </div>
+                </form>
+              ) : (
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-medium">{title}</h3>
+                  <div className="flex items-center gap-2"> </div>
+                </div>
+              )}
+            </div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {description}
+            </p>
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Button variant="outline">Cancel</Button>
+        <Button>Deploy</Button>
+      </CardFooter>
+    </Card >
   );
 }

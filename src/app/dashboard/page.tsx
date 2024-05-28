@@ -20,9 +20,9 @@ export default async function Home() {
     .where(eq(dances.userId, data.user.id))
     .orderBy(dances.createdAt)
 
-  return <>
+  return <div className="bg-neutral-900">
     <Navbar user={data.user} />
-    <div className="flex min-h-screen flex-col mt-7 bg-black-800">
+    <div className="flex min-h-screen flex-col pt-7 bg-gray-100">
       <main className="mx-auto flex max-w-screen-xl flex-col gap-4">
         <div className="flex flex-row flex-wrap gap-10">
           {dancesList.length === 0 && <NoContent />}
@@ -40,5 +40,5 @@ export default async function Home() {
         </div>
       </main>
     </div>
-  </>
+  </div>
 }
