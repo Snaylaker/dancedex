@@ -89,9 +89,9 @@ export function DanceCard({
                 disabled={isProcessing}
               />
               <div className="flex justify-between">
-                <Button type="submit" disabled={isProcessing}>Save</Button>
+                <Button type="submit" disabled={isProcessing}>Enregistrer</Button>
                 <Button variant="secondary" onClick={handleCancel} disabled={isProcessing}>
-                  Cancel
+                  Annuler
                 </Button>
               </div>
             </form>

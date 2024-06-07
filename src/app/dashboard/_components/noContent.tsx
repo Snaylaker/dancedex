@@ -2,7 +2,7 @@ import AddDance from "./addDance";
 
 export default function NoContent() {
   return (
-    <div className="text-center mt-10">
+    <div className="text-center mt-10 mx-auto">
       <svg
         className="mx-auto h-12 w-12 text-gray-400"
         fill="none"

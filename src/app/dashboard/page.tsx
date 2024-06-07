@@ -20,25 +20,27 @@ export default async function Home() {
     .where(eq(dances.userId, data.user.id))
     .orderBy(dances.createdAt)
 
-  return <>
-    <Navbar user={data.user} />
-    <div className="flex min-h-screen flex-col mt-7 bg-black-800">
-      <main className="mx-auto flex max-w-screen-xl flex-col gap-4">
-        <div className="flex flex-row flex-wrap gap-10">
-          {dancesList.length === 0 && <NoContent />}
-          {dancesList.map((element) => (
-            <DanceCard
-              key={element.id}
-              id={element.id}
-              title={element.title!}
-              description={element.description!}
-              videoUrl={
-                supabase.storage.from("dances").getPublicUrl(getFileStorageUrl(data.user.id, element.fileName!)).data.publicUrl
-              }
-            />
-          ))}
-        </div>
-      </main>
-    </div>
-  </>
+  return (
+    <>
+      <Navbar user={data.user} />
+      <div className="flex min-h-screen flex-col mt-7 bg-black-800">
+        <main className="mx-auto flex w-full max-w-screen-xl flex-col gap-4 px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-row flex-wrap gap-4 sm:gap-6 lg:gap-10">
+            {dancesList.length === 0 && <NoContent />}
+            {dancesList.map((element) => (
+              <DanceCard
+                key={element.id}
+                id={element.id}
+                title={element.title!}
+                description={element.description!}
+                videoUrl={
+                  supabase.storage.from("dances").getPublicUrl(getFileStorageUrl(data.user.id, element.fileName!)).data.publicUrl
+                }
+              />
+            ))}
+          </div>
+        </main>
+      </div>
+    </>
+  );
 }
