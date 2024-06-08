@@ -1,26 +1,36 @@
-"use client";
+"use client"
 
-import { useFormStatus } from "react-dom";
-import { useState } from "react";
-import { PlusIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { toast } from "@/components/ui/use-toast";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { addDance } from "@/actions/addDance";
+import { AddDance as AddDanceAction } from "@/actions/AddDance"
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { toast } from "@/components/ui/use-toast"
+import { PlusIcon } from "lucide-react"
+import { useState } from "react"
+import { useFormStatus } from "react-dom"
 
-const wait = () => new Promise((resolve) => setTimeout(resolve, 1000));
+const wait = () => new Promise((resolve) => setTimeout(resolve, 1000))
 
 function SubmitButton() {
   const { pending } = useFormStatus()
   return (
-    <Button type="submit" disabled={pending}>Enregistrer la danse</Button>
+    <Button type="submit" disabled={pending}>
+      Enregistrer la danse
+    </Button>
   )
 }
 
 export default function AddDance() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -37,9 +47,9 @@ export default function AddDance() {
           </DialogDescription>
         </DialogHeader>
         <form
-          action={addDance}
+          action={AddDanceAction}
           onSubmit={() => {
-            wait().then(() => setOpen(false));
+            wait().then(() => setOpen(false))
             toast({
               description: "La video a été ajouté",
             })
@@ -48,18 +58,21 @@ export default function AddDance() {
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Label className="text-left">Titre</Label>
-              <Input name="title"
-                required
-                className="col-span-3" />
+              <Input name="title" required className="col-span-3" />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label className="text-left">Description</Label>
               <Input required name="description" className="col-span-3" />
-
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label className="text-right">Séléctionnez une video</Label>
-              <Input required name="video" type="file" placeholder="Aucune video seléctionée" className="col-span-3" />
+              <Input
+                required
+                name="video"
+                type="file"
+                placeholder="Aucune video seléctionée"
+                className="col-span-3"
+              />
             </div>
           </div>
           <DialogFooter>
@@ -68,5 +81,5 @@ export default function AddDance() {
         </form>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

@@ -1,11 +1,9 @@
-import signIn from "@/actions/signIn"
-import { Button } from "@/components/ui/button"
+import signIn from "@/actions/signIn";
+import { Button } from "@/components/ui/button";
 
 export default function Example() {
-
   return (
     <>
-
       <svg
         className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
         aria-hidden="true"
@@ -54,17 +52,17 @@ export default function Example() {
               DanceDex Lorem ipsum dolor sit amet consectetur adipisicing elit
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-slate-200">
-              Avec DanceDex, vous pouvez enregistrer vous passes et les retrouver plus tard.
-
+              Avec DanceDex, vous pouvez enregistrer vous passes et les
+              retrouver plus tard.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <form action={signIn}>
-                <Button >Connecte toi avec google</Button>
+                <Button>Connecte toi avec google</Button>
               </form>
             </div>
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }

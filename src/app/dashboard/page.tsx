@@ -6,6 +6,14 @@ import { redirect } from "next/navigation";
 import { dances } from "../../../drizzle/schema";
 import { DanceCard } from "./_components/danceCard";
 import NoContent from "./_components/noContent";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default async function Home() {
   const supabase = createClient();

@@ -14,7 +14,7 @@ export default async function RootLayout({
   }
   return (
     <html lang="en">
-      <body className=" max-w-screen-xl bg-neutral-950 mx-auto">
+      <body className="max-w-screen-xl bg-background text-foreground">
         <NavBar user={data.user} />
         {children}
       </body>

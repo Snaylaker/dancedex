@@ -40,8 +40,8 @@ export function DanceCard({
   );
 
   return (
-    <Card className="max-w-sm rounded-lg shadow-lg">
-      <video controls className="w-full rounded-t-lg">
+    <Card className=" max-w-sm self-start rounded-lg shadow-lg">
+      <video controls className="w-full rounded-t-lg   object-cover">
         <source src={videoUrl} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
@@ -50,40 +50,39 @@ export function DanceCard({
           <form id="edit-dance" action={editDanceAction}>
             <input type="hidden" name="id" value={id} />
             <Input
+              type="text"
               name="title"
-              required
               value={editTitle}
+              required
               onChange={(e) => setEditTitle(e.target.value)}
-              className="text-sm text-gray-500 dark:text-gray-400"
+              className="text-lg font-medium "
             />
             <Textarea
-              name="description"
               value={editDescription}
               required
               onChange={(e) => setEditDescription(e.target.value)}
-              className="text-base text-gray-700"
+              className="text-sm flex-1"
             />
           </form>
         ) : (
           <>
-            <h3 className="text-lg font-medium">{title}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400 flex-1">
-              {description}
-            </p>
+            <h3 className="text-lg font-medium ">{editTitle}</h3>
+            <p className="text-sm flex-1">{editDescription}</p>
           </>
         )}
       </CardContent>
-      <CardFooter className="flex items-center max-h-12 justify-between bg-gray-100 p-4 dark:bg-gray-800">
+      <CardFooter className="items-center max-h-12 justify-between p-4 ">
         {isEditing ? (
           <>
             {isPending ? (
-              <span className="text-gray-500">Enregistrement en cours...</span>
+              <span className="text-gray-300">Enregistrement en cours...</span>
             ) : (
               <>
                 <button
                   className="text-green-500 hover:text-green-600 dark:text-green-400 dark:hover:text-green-500"
                   id="save-dance"
                   form="edit-dance"
+                  type="submit"
                 >
                   <CheckIcon className="h-5 w-5 ml-2" />
                 </button>
@@ -130,15 +129,15 @@ export function DanceCard({
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogTitle>Etes-vous sûr ?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your account and remove your data from our servers.
+                    Attnetion, cette action est définitive et ne peut pas être
+                    annulée.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Continue</AlertDialogAction>
+                  <AlertDialogCancel>Annuler</AlertDialogCancel>
+                  <AlertDialogAction>Supprimer</AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>{" "}
