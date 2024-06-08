@@ -1,12 +1,24 @@
 "use client";
 
-import { useState } from "react";
-import { toast } from "@/components/ui/use-toast";
+import { editDance } from "@/actions/editDance";
+import {
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { editDance } from "@/actions/editDance";
-import { deleteDance } from "@/actions/deleteDance";
+import { usePendingAction } from "@/utils/hooks/usePendingAction";
+import { AlertDialog } from "@radix-ui/react-alert-dialog";
+import { CheckIcon, PencilIcon, PinIcon, TrashIcon, X } from "lucide-react";
+import { useState } from "react";
 
 export function DanceCard({
   title,
@@ -22,95 +34,117 @@ export function DanceCard({
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(title);
   const [editDescription, setEditDescription] = useState(description);
-  const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
-
-  const handleCancel = () => {
-    setIsEditing(false);
-    setEditTitle(title); // Reset to initial title
-    setEditDescription(description); // Reset to initial description
-  };
-
-  //@ts-ignore
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const formData = new FormData(form);
-    setIsProcessing(true);
-    await editDance(formData);
-    toast({
-      description: "Les informations ont été mises à jour",
-    })
-    setIsProcessing(false);
-    setIsEditing(false);
-  };
-
-  const handleDelete = async () => {
-    setIsProcessing(true);
-    await deleteDance(id);
-    setIsProcessing(false);
-    toast({
-      description: "La video a été suprimée",
-    })
-  };
+  const [isPending, editDanceAction] = usePendingAction(editDance, () =>
+    setIsEditing(false),
+  );
 
   return (
-    <div className="my-4 min-h-96 max-w-96 rounded-lg bg-white shadow-lg">
+    <Card className="max-w-sm rounded-lg shadow-lg">
       <video controls className="w-full rounded-t-lg">
         <source src={videoUrl} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <div className="flex flex-col space-y-4  px-6 py-4">
-        <div className="flex flex-col space-y-10 min-h-50">
-          {isEditing ? (
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col gap-2"
+      <CardContent className="flex flex-col space-y-4 px-6 py-4">
+        {isEditing ? (
+          <form id="edit-dance" action={editDanceAction}>
+            <input type="hidden" name="id" value={id} />
+            <Input
+              name="title"
+              required
+              value={editTitle}
+              onChange={(e) => setEditTitle(e.target.value)}
+              className="text-sm text-gray-500 dark:text-gray-400"
+            />
+            <Textarea
+              name="description"
+              value={editDescription}
+              required
+              onChange={(e) => setEditDescription(e.target.value)}
+              className="text-base text-gray-700"
+            />
+          </form>
+        ) : (
+          <>
+            <h3 className="text-lg font-medium">{title}</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400 flex-1">
+              {description}
+            </p>
+          </>
+        )}
+      </CardContent>
+      <CardFooter className="flex items-center max-h-12 justify-between bg-gray-100 p-4 dark:bg-gray-800">
+        {isEditing ? (
+          <>
+            {isPending ? (
+              <span className="text-gray-500">Enregistrement en cours...</span>
+            ) : (
+              <>
+                <button
+                  className="text-green-500 hover:text-green-600 dark:text-green-400 dark:hover:text-green-500"
+                  id="save-dance"
+                  form="edit-dance"
+                >
+                  <CheckIcon className="h-5 w-5 ml-2" />
+                </button>
+                <Button
+                  className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-500"
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => setIsEditing(false)}
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            <Button
+              className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+              size="icon"
+              variant="ghost"
+              onClick={() => setIsEditing(true)}
             >
-              <input type="hidden" name="id" value={id} />
-              <Input
-                type="text"
-                name="title"
-                required
-                value={editTitle}
-                onChange={(e) => setEditTitle(e.target.value)}
-                className="text-xl font-bold"
-                disabled={isProcessing}
-              />
-              <Textarea
-                name="description"
-                value={editDescription}
-                required
-                onChange={(e) => setEditDescription(e.target.value)}
-                className="text-base text-gray-700"
-                disabled={isProcessing}
-              />
-              <div className="flex justify-between">
-                <Button type="submit" disabled={isProcessing}>Enregistrer</Button>
-                <Button variant="secondary" onClick={handleCancel} disabled={isProcessing}>
-                  Annuler
+              <PencilIcon className="h-5 w-5" />
+              <span className="sr-only">Edit</span>
+            </Button>
+            <Button
+              className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500"
+              size="icon"
+              variant="ghost"
+            >
+              <PinIcon className="h-5 w-5" />
+              <span className="sr-only">Pin</span>
+            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-500"
+                  size="icon"
+                  variant="ghost"
+                >
+                  <TrashIcon className="h-5 w-5" />
+                  <span className="sr-only">Delete</span>
                 </Button>
-              </div>
-            </form>
-          ) : (
-            <>
-              <div>
-                <div className="text-xl font-bold">{title}</div>
-                <p className="text-base h-12 text-gray-700">{description}</p>
-              </div>
-              <div className="flex justify-between">
-                <Button onClick={handleEdit} disabled={isProcessing}>Modifier</Button>
-                <Button variant="secondary" onClick={handleDelete} disabled={isProcessing}>
-                  Supprimer
-                </Button>
-              </div>
-            </>
-          )}
-        </div>
-      </div>
-    </div>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    your account and remove your data from our servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction>Continue</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>{" "}
+          </>
+        )}
+      </CardFooter>
+    </Card>
   );
 }

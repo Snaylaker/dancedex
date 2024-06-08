@@ -17,7 +17,8 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-neutral-900">
         <Toaster />
-        {children}</body>
+        {children}
+      </body>
     </html>
   );
 }
