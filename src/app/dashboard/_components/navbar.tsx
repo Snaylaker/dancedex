@@ -17,7 +17,7 @@ import { useTheme } from "next-themes";
 
 export default function NavBar({ user }: { user: User }) {
   return (
-    <nav className="mx-2 flex items-center justify-between pt-2">
+    <nav className="my-auto flex h-14 items-center justify-between border-b border-border/40 bg-background/90">
       <div className="text-2xl font-semibold tracking-tight">DanceDex</div>
       <div className="flex space-x-2">
         <AddDance />

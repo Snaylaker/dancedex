@@ -2,6 +2,7 @@
 
 import { deleteDance } from "@/actions/deleteDance";
 import { editDance } from "@/actions/editDance";
+import { togglePinDance } from "@/actions/pinDance";
 import {
   AlertDialogAction,
   AlertDialogCancel,
@@ -22,11 +23,13 @@ import { CheckIcon, PencilIcon, PinIcon, TrashIcon, X } from "lucide-react";
 import { useState } from "react";
 
 export function DanceCard({
+  pinned,
   title,
   description,
   id,
   videoUrl,
 }: {
+  pinned: boolean;
   title: string;
   id: string;
   description: string;
@@ -39,6 +42,8 @@ export function DanceCard({
   const [isPending, editDanceAction] = usePendingAction(editDance, () =>
     setIsEditing(false),
   );
+
+  const [isPinning, pinDanceAction] = usePendingAction(togglePinDance);
 
   const [isDeletionPending, deleteDanceAction] = usePendingAction(deleteDance);
 
@@ -114,11 +119,12 @@ export function DanceCard({
               <span className="sr-only">Edit</span>
             </Button>
             <Button
-              className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500"
+              className={`text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500 `}
               size="icon"
               variant="ghost"
+              onClick={() => pinDanceAction(id)}
             >
-              <PinIcon className="h-5 w-5" />
+              <PinIcon className={`h-5 w-5 ${pinned ? "fill-current" : ""}`} />
               <span className="sr-only">Pin</span>
             </Button>
             <AlertDialog>
@@ -136,7 +142,7 @@ export function DanceCard({
                 <AlertDialogHeader>
                   <AlertDialogTitle>Etes-vous sûr ?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Attnetion, cette action est définitive et ne peut pas être
+                    Attention, cette action est définitive et ne peut pas être
                     annulée.
                   </AlertDialogDescription>
                 </AlertDialogHeader>

@@ -58,7 +58,8 @@ export default function AddDance() {
               <Input
                 required
                 name="video"
-                type="video/*"
+                type="file"
+                accept="video/*"
                 placeholder="Aucune video seléctionée"
                 className="col-span-3"
               />

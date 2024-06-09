@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Example() {
   return (
-    <>
+    <div className="h-full">
       <BackDrop />
       <div className="h-full">
         <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
@@ -23,7 +23,7 @@ export default function Example() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

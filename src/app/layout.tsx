@@ -14,8 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className="h-full">
-      <body className="mx-auto h-full max-w-screen-xl ">
+    <html lang="fr">
+      <body className="mx-auto min-h-screen max-w-screen-xl font-sans antialiased">
         <Toaster />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
