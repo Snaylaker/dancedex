@@ -31,9 +31,11 @@ export default function AddDance() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">
-          <PlusIcon className=" h-5 w-5" aria-hidden="true" />
-          Ajouter une nouvelle danse
+        <Button variant="outline" className="flex items-center">
+          <PlusIcon className="h-5 w-5" aria-hidden="true" />
+          <span className="ml-2 hidden sm:inline">
+            Ajouter une nouvelle danse
+          </span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
