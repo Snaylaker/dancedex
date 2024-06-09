@@ -8,17 +8,19 @@ import { DanceCard } from "./_components/danceCard";
 import NoContent from "./_components/noContent";
 import SearchBar from "./_components/searchbar";
 
-export default async function Home(searchParams: {
-  [key: string]: string | string[] | undefined;
-}) {
+interface PageProps {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default async function Page({ params, searchParams }: PageProps) {
   const supabase = createClient();
   const { data } = await supabase.auth.getUser();
   if (!data.user) {
     redirect("/");
   }
 
-  //@ts-ignore
-  const title = searchParams.searchParams.title;
+  const title = searchParams["title"] as string;
 
   const dancesList = await db
     .select()
@@ -35,7 +37,7 @@ export default async function Home(searchParams: {
           <SearchBar />
           <div className="flex flex-row flex-wrap gap-4">
             {dancesList
-              .filter((element) => element.title?.includes(title ?? ""))
+              .filter((element) => element.title?.startsWith(title ?? ""))
               .map((element) => (
                 <DanceCard
                   key={element.id}
