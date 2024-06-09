@@ -19,7 +19,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { usePendingAction } from "@/utils/hooks/usePendingAction";
 import { AlertDialog } from "@radix-ui/react-alert-dialog";
-import { CheckIcon, PencilIcon, PinIcon, TrashIcon, X } from "lucide-react";
+import {
+  CheckIcon,
+  Loader,
+  PencilIcon,
+  PinIcon,
+  TrashIcon,
+  X,
+} from "lucide-react";
 import { useState } from "react";
 
 export function DanceCard({
@@ -119,7 +126,7 @@ export function DanceCard({
               <span className="sr-only">Edit</span>
             </Button>
             {isPinning ? (
-              <LoaderCircle className="h-5 w-5 animate-spin" />
+              <Loader className="h-5 w-5 animate-spin" />
             ) : (
               <Button
                 className={`text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500 `}
