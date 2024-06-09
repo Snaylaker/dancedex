@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteDance } from "@/actions/deleteDance";
 import { editDance } from "@/actions/editDance";
 import {
   AlertDialogAction,
@@ -39,8 +40,10 @@ export function DanceCard({
     setIsEditing(false),
   );
 
+  const [isDeletionPending, deleteDanceAction] = usePendingAction(deleteDance);
+
   return (
-    <Card className=" max-w-sm self-start rounded-lg shadow-lg">
+    <Card className="max-w-sm self-start rounded-lg shadow-lg">
       <video controls className="w-full rounded-t-lg   object-cover">
         <source src={videoUrl} type="video/mp4" />
         Your browser does not support the video tag.
@@ -59,19 +62,21 @@ export function DanceCard({
             />
             <Textarea
               value={editDescription}
+              name="description"
+              placeholder="Ajoute une description"
               required
               onChange={(e) => setEditDescription(e.target.value)}
-              className="text-sm flex-1"
+              className="flex-1 text-sm"
             />
           </form>
         ) : (
           <>
             <h3 className="text-lg font-medium ">{editTitle}</h3>
-            <p className="text-sm flex-1">{editDescription}</p>
+            <p className="flex-1 text-sm">{editDescription}</p>
           </>
         )}
       </CardContent>
-      <CardFooter className="items-center max-h-12 justify-between p-4 ">
+      <CardFooter className="max-h-12 items-center justify-between p-4 ">
         {isEditing ? (
           <>
             {isPending ? (
@@ -84,7 +89,7 @@ export function DanceCard({
                   form="edit-dance"
                   type="submit"
                 >
-                  <CheckIcon className="h-5 w-5 ml-2" />
+                  <CheckIcon className="ml-2 h-5 w-5" />
                 </button>
                 <Button
                   className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-500"
@@ -137,7 +142,12 @@ export function DanceCard({
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Annuler</AlertDialogCancel>
-                  <AlertDialogAction>Supprimer</AlertDialogAction>
+                  <AlertDialogAction
+                    disabled={isDeletionPending}
+                    onClick={() => deleteDanceAction(id)}
+                  >
+                    Supprimer
+                  </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>{" "}

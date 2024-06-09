@@ -13,8 +13,8 @@ export default async function RootLayout({
     redirect("/");
   }
   return (
-    <html lang="en">
-      <body className="max-w-screen-xl bg-background text-foreground">
+    <html lang="fr">
+      <body>
         <NavBar user={data.user} />
         {children}
       </body>

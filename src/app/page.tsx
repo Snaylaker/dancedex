@@ -4,6 +4,32 @@ import { Button } from "@/components/ui/button";
 export default function Example() {
   return (
     <>
+      <BackDrop />
+      <div className="h-full">
+        <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              DanceDex Lorem ipsum dolor sit amet consectetur adipisicing elit
+            </h2>
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-slate-200">
+              Avec DanceDex, vous pouvez enregistrer vous passes et les
+              retrouver plus tard.
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              <form action={signIn}>
+                <Button>Connecte toi avec google</Button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function BackDrop() {
+  return (
+    <>
       <svg
         className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
         aria-hidden="true"
@@ -44,24 +70,6 @@ export default function Example() {
               "polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)",
           }}
         />
-      </div>
-      <div className="h-full ">
-        <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              DanceDex Lorem ipsum dolor sit amet consectetur adipisicing elit
-            </h2>
-            <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-slate-200">
-              Avec DanceDex, vous pouvez enregistrer vous passes et les
-              retrouver plus tard.
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <form action={signIn}>
-                <Button>Connecte toi avec google</Button>
-              </form>
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );

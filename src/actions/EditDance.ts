@@ -15,8 +15,8 @@ export async function editDance(values: FormData) {
       .set({ title, description })
       .where(eq(dances.id, id));
     revalidateTag("/");
+    return { success: "La danse a été mise à jour" };
   } catch (error) {
-    console.log("Error updating dance:", error);
-    return { error: "An error occurred while updating the dance" };
+    return { error: "Une erreur est survenue lors de la mise à jour" };
   }
 }
