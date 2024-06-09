@@ -19,7 +19,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { usePendingAction } from "@/utils/hooks/usePendingAction";
 import { AlertDialog } from "@radix-ui/react-alert-dialog";
-import { CheckIcon, PencilIcon, PinIcon, TrashIcon, X } from "lucide-react";
+import {
+  CheckIcon,
+  Loader,
+  PencilIcon,
+  PinIcon,
+  TrashIcon,
+  X,
+} from "lucide-react";
 import { useState } from "react";
 
 export function DanceCard({
@@ -118,15 +125,21 @@ export function DanceCard({
               <PencilIcon className="h-5 w-5" />
               <span className="sr-only">Edit</span>
             </Button>
-            <Button
-              className={`text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500 `}
-              size="icon"
-              variant="ghost"
-              onClick={() => pinDanceAction(id)}
-            >
-              <PinIcon className={`h-5 w-5 ${pinned ? "fill-current" : ""}`} />
-              <span className="sr-only">Pin</span>
-            </Button>
+            {isPinning ? (
+              <Loader className="h-4 w-4" />
+            ) : (
+              <Button
+                className={`text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500 `}
+                size="icon"
+                variant="ghost"
+                onClick={() => pinDanceAction(id)}
+              >
+                <PinIcon
+                  className={`h-5 w-5 ${pinned ? "fill-current" : ""}`}
+                />
+                <span className="sr-only">Pin</span>
+              </Button>
+            )}
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button

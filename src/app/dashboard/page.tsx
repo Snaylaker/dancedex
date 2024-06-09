@@ -35,7 +35,7 @@ export default async function Page({ params, searchParams }: PageProps) {
       ) : (
         <>
           <SearchBar />
-          <div className="flex flex-row flex-wrap gap-4">
+          <div className="py-auto flex flex-row flex-wrap gap-4">
             {dancesList
               .filter((element) => element.title?.startsWith(title ?? ""))
               .map((element) => (
