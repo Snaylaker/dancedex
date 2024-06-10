@@ -2,7 +2,7 @@ import { db } from "@/utils/drizzle/client";
 import { createClient } from "@/utils/supabase/server";
 import { getFileStorageUrl } from "@/utils/utils";
 import { asc, desc, eq } from "drizzle-orm";
-import { redirect, useSearchParams } from "next/navigation";
+import { redirect } from "next/navigation";
 import { dances } from "../../../drizzle/schema";
 import { DanceCard } from "./_components/danceCard";
 import NoContent from "./_components/noContent";
@@ -35,7 +35,7 @@ export default async function Page({ params, searchParams }: PageProps) {
       ) : (
         <>
           <SearchBar />
-          <div className="py-auto flex flex-row flex-wrap gap-4">
+          <div className="flex flex-row flex-wrap gap-4">
             {dancesList
               .filter((element) => element.title?.startsWith(title ?? ""))
               .map((element) => (

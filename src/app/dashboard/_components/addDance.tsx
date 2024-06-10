@@ -13,18 +13,14 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "@/components/ui/use-toast";
 import { usePendingAction } from "@/utils/hooks/usePendingAction";
-import { PlusIcon } from "lucide-react";
+import { Loader, PlusIcon } from "lucide-react";
 import { useState } from "react";
 
 export default function AddDance() {
   const [open, setOpen] = useState(false);
 
   const [isPending, AddingDance] = usePendingAction(AddDanceAction, () => {
-    toast({
-      description: "La video a été ajouté",
-    });
     setOpen(false);
   });
 
@@ -69,7 +65,11 @@ export default function AddDance() {
           </div>
           <DialogFooter>
             <Button type="submit" disabled={isPending}>
-              Enregistrer la danse
+              {isPending ? (
+                <Loader className="h-5 w-5 motion-safe:animate-spin" />
+              ) : (
+                "Enregistrer la danse"
+              )}
             </Button>
           </DialogFooter>
         </form>

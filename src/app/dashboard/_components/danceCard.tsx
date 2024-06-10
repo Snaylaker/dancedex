@@ -56,13 +56,19 @@ export function DanceCard({
 
   return (
     <Card className="max-w-sm self-start rounded-lg shadow-lg">
-      <video controls className="w-full rounded-t-lg   object-cover">
+      <video controls className="rounded-t-lg">
         <source src={videoUrl} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <CardContent className="flex flex-col space-y-4 px-6 py-4">
+      <CardContent
+        className={`flex h-36 flex-col justify-evenly transition-all duration-300 ease-in-out`}
+      >
         {isEditing ? (
-          <form id="edit-dance" action={editDanceAction}>
+          <form
+            id="edit-dance"
+            action={editDanceAction}
+            className="flex flex-col justify-evenly"
+          >
             <input type="hidden" name="id" value={id} />
             <Input
               type="text"
@@ -70,7 +76,7 @@ export function DanceCard({
               value={editTitle}
               required
               onChange={(e) => setEditTitle(e.target.value)}
-              className="text-lg font-medium "
+              className="text-lg font-medium"
             />
             <Textarea
               value={editDescription}
@@ -78,21 +84,21 @@ export function DanceCard({
               placeholder="Ajoute une description"
               required
               onChange={(e) => setEditDescription(e.target.value)}
-              className="flex-1 text-sm"
+              className="text-sm"
             />
           </form>
         ) : (
           <>
             <h3 className="text-lg font-medium ">{editTitle}</h3>
-            <p className="flex-1 text-sm">{editDescription}</p>
+            <p className="text-sm">{editDescription}</p>
           </>
         )}
       </CardContent>
-      <CardFooter className="max-h-12 items-center justify-between p-4 ">
+      <CardFooter className="max-h-8 items-center justify-between ">
         {isEditing ? (
           <>
             {isPending ? (
-              <span className="text-gray-300">Enregistrement en cours...</span>
+              <Loader className="h-5 w-5 motion-safe:animate-spin" />
             ) : (
               <>
                 <button
@@ -126,10 +132,10 @@ export function DanceCard({
               <span className="sr-only">Edit</span>
             </Button>
             {isPinning ? (
-              <Loader className="h-5 w-5 animate-spin" />
+              <Loader className="h-5 w-5 motion-safe:animate-spin" />
             ) : (
               <Button
-                className={`text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500 `}
+                className={`text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500`}
                 size="icon"
                 variant="ghost"
                 onClick={() => pinDanceAction(id)}
@@ -169,7 +175,7 @@ export function DanceCard({
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
-            </AlertDialog>{" "}
+            </AlertDialog>
           </>
         )}
       </CardFooter>

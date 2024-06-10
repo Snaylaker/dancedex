@@ -17,7 +17,7 @@ import { useTheme } from "next-themes";
 
 export default function NavBar({ user }: { user: User }) {
   return (
-    <nav className="my-auto flex h-12 items-center justify-between border-b border-border/40 bg-background/95">
+    <nav className="flex h-12 items-center justify-between border-b border-border/40 bg-background/95">
       <div className="text-2xl font-semibold tracking-tight">DanceDex</div>
       <div className="flex space-x-2">
         <AddDance />
@@ -29,7 +29,7 @@ export default function NavBar({ user }: { user: User }) {
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
+          <DropdownMenuContent align="start">
             <DropdownMenuLabel>{user.email}</DropdownMenuLabel>
             <DropdownMenuItem>
               <form action={signOut}>
