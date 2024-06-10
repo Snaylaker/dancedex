@@ -1,4 +1,5 @@
 import { db } from "@/utils/drizzle/client";
+import { motion } from "framer-motion";
 import { createClient } from "@/utils/supabase/server";
 import { getFileStorageUrl } from "@/utils/utils";
 import { asc, desc, eq } from "drizzle-orm";
@@ -7,6 +8,7 @@ import { dances } from "../../../drizzle/schema";
 import { DanceCard } from "./_components/danceCard";
 import NoContent from "./_components/noContent";
 import SearchBar from "./_components/searchbar";
+import DancesList from "./_components/danceList";
 
 interface PageProps {
   params: { slug: string };
@@ -19,8 +21,6 @@ export default async function Page({ params, searchParams }: PageProps) {
   if (!data.user) {
     redirect("/");
   }
-
-  const title = searchParams["title"] as string;
 
   const dancesList = await db
     .select()
@@ -35,26 +35,7 @@ export default async function Page({ params, searchParams }: PageProps) {
       ) : (
         <>
           <SearchBar />
-          <div className="flex flex-row flex-wrap gap-4">
-            {dancesList
-              .filter((element) => element.title?.startsWith(title ?? ""))
-              .map((element) => (
-                <DanceCard
-                  key={element.id}
-                  id={element.id}
-                  title={element.title!}
-                  pinned={element.pinned!}
-                  description={element.description!}
-                  videoUrl={
-                    supabase.storage
-                      .from("dances")
-                      .getPublicUrl(
-                        getFileStorageUrl(data.user.id, element.fileName!),
-                      ).data.publicUrl
-                  }
-                />
-              ))}
-          </div>
+          <DancesList dances={dancesList} userId={data.user.id} />
         </>
       )}
     </main>
