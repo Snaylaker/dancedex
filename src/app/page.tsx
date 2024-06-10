@@ -1,28 +1,22 @@
 import signIn from "@/actions/signIn";
 import { Button } from "@/components/ui/button";
+import { KeyRound } from "lucide-react";
 
 export default function Example() {
   return (
-    <div className="h-full">
+    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
       <BackDrop />
-      <div className="h-full">
-        <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              DanceDex Lorem ipsum dolor sit amet consectetur adipisicing elit
-            </h2>
-            <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-slate-200">
-              Avec DanceDex, vous pouvez enregistrer vous passes et les
-              retrouver plus tard.
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <form action={signIn}>
-                <Button>Connecte toi avec google</Button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h1 className="scroll-m-20 border-b pb-2  text-4xl font-extrabold tracking-tight lg:text-5xl">
+        DanceDex
+      </h1>
+      <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0">
+        Enregistrez vos passes et prennez des notes pour vos répétitions
+      </h2>
+      <form className="mt-4 flex items-center justify-center" action={signIn}>
+        <Button>
+          <KeyRound className="mr-4 h-5 w-5" /> Connectez-vous avec Google
+        </Button>
+      </form>
     </div>
   );
 }

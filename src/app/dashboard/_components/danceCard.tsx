@@ -56,13 +56,16 @@ export function DanceCard({
 
   return (
     <Card className="max-w-sm self-start rounded-lg shadow-lg">
-      <video playsInline controls className="rounded-t-lg">
-        <source src={videoUrl} type="video/mp4" />
+      <video
+        playsInline
+        preload="metadata"
+        controls
+        className=" rounded-t-lg object-cover"
+      >
+        <source src={videoUrl + "#t=0.1"} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <CardContent
-        className={`flex h-36 flex-col justify-evenly transition-all duration-300 ease-in-out`}
-      >
+      <CardContent className="flex h-36 flex-col justify-evenly ">
         {isEditing ? (
           <form
             id="edit-dance"
