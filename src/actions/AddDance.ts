@@ -18,7 +18,13 @@ export async function AddDance(values: FormData) {
       return { error: "Invalid user" };
     }
     const filePath = getFileStorageUrl(userId, video.name);
-    await createClient().storage.from("dances").upload(filePath, video);
+    const { data, error } = await supabase.storage
+      .from("dances")
+      .upload(filePath, video);
+
+    if (error) {
+      return { error: error.message };
+    }
     await db.insert(dances).values({
       title: title,
       fileName: video.name,

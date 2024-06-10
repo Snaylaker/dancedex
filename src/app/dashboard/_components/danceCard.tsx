@@ -45,6 +45,7 @@ export function DanceCard({
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(title);
   const [editDescription, setEditDescription] = useState(description);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const [isPending, editDanceAction] = usePendingAction(editDance, () =>
     setIsEditing(false),
@@ -52,7 +53,12 @@ export function DanceCard({
 
   const [isPinning, pinDanceAction] = usePendingAction(togglePinDance);
 
-  const [isDeletionPending, deleteDanceAction] = usePendingAction(deleteDance);
+  const [isDeletionPending, deleteDanceAction] = usePendingAction(
+    deleteDance,
+    () => {
+      setIsDeleteModalOpen(false);
+    },
+  );
 
   return (
     <Card className="max-w-sm self-start rounded-lg shadow-lg">
@@ -149,12 +155,13 @@ export function DanceCard({
                 <span className="sr-only">Pin</span>
               </Button>
             )}
-            <AlertDialog>
+            <AlertDialog open={isDeleteModalOpen}>
               <AlertDialogTrigger asChild>
                 <Button
                   className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-500"
                   size="icon"
                   variant="ghost"
+                  onClick={() => setIsDeleteModalOpen(true)}
                 >
                   <TrashIcon className="h-5 w-5" />
                   <span className="sr-only">Delete</span>
@@ -169,12 +176,18 @@ export function DanceCard({
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Annuler</AlertDialogCancel>
+                  <AlertDialogCancel disabled={isDeletionPending}>
+                    Annuler
+                  </AlertDialogCancel>
                   <AlertDialogAction
                     disabled={isDeletionPending}
                     onClick={() => deleteDanceAction(id)}
                   >
-                    Supprimer
+                    {isDeletionPending ? (
+                      <Loader className="h-5 w-5 motion-safe:animate-spin" />
+                    ) : (
+                      "Supprimer"
+                    )}
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>

@@ -22,9 +22,6 @@ export default function NoContent() {
       <p className="mt-1 text-sm ">
         Essayer d&apos;importer une video pour commencer
       </p>
-      <div className="mt-6">
-        <AddDance />
-      </div>
     </div>
   );
 }

@@ -15,8 +15,8 @@ interface PageProps {
 
 export default async function Page({ params, searchParams }: PageProps) {
   const supabase = createClient();
-  const { data } = await supabase.auth.getUser();
-  if (!data.user) {
+  const { data: userData } = await supabase.auth.getUser();
+  if (!userData.user) {
     redirect("/");
   }
 
@@ -25,7 +25,7 @@ export default async function Page({ params, searchParams }: PageProps) {
   const dancesList = await db
     .select()
     .from(dances)
-    .where(eq(dances.userId, data.user.id))
+    .where(eq(dances.userId, userData.user.id))
     .orderBy(desc(dances.pinned), asc(dances.createdAt));
 
   return (
@@ -38,22 +38,27 @@ export default async function Page({ params, searchParams }: PageProps) {
           <div className="flex flex-row flex-wrap gap-4">
             {dancesList
               .filter((element) => element.title?.startsWith(title ?? ""))
-              .map((element) => (
-                <DanceCard
-                  key={element.id}
-                  id={element.id}
-                  title={element.title!}
-                  pinned={element.pinned!}
-                  description={element.description!}
-                  videoUrl={
-                    supabase.storage
-                      .from("dances")
-                      .getPublicUrl(
-                        getFileStorageUrl(data.user.id, element.fileName!),
-                      ).data.publicUrl
-                  }
-                />
-              ))}
+              .map(async (element) => {
+                const { data, error } = await supabase.storage
+                  .from("dances")
+                  .createSignedUrl(
+                    getFileStorageUrl(userData.user.id, element.fileName!),
+                    3600,
+                  );
+                if (error) {
+                  console.log(error);
+                }
+                return (
+                  <DanceCard
+                    key={element.id}
+                    id={element.id}
+                    title={element.title!}
+                    pinned={element.pinned!}
+                    description={element.description!}
+                    videoUrl={data?.signedUrl!}
+                  />
+                );
+              })}
           </div>
         </>
       )}
