@@ -56,7 +56,7 @@ export function DanceCard({
 
   return (
     <Card className="max-w-sm self-start rounded-lg shadow-lg">
-      <video controls className="rounded-t-lg">
+      <video playsInline controls className="rounded-t-lg">
         <source src={videoUrl} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
