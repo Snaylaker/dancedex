@@ -176,7 +176,10 @@ export function DanceCard({
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel disabled={isDeletionPending}>
+                  <AlertDialogCancel
+                    onClick={() => setIsDeleteModalOpen(false)}
+                    disabled={isDeletionPending}
+                  >
                     Annuler
                   </AlertDialogCancel>
                   <AlertDialogAction

@@ -18,7 +18,7 @@ export async function AddDance(values: FormData) {
       return { error: "Invalid user" };
     }
     const filePath = getFileStorageUrl(userId, video.name);
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from("dances")
       .upload(filePath, video);
 

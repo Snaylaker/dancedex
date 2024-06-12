@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <body className="mx-auto min-h-screen max-w-xs font-sans antialiased lg:min-w-max lg:max-w-screen-xl">
+      <body className="mx-auto max-w-32  font-sans antialiased lg:min-w-max lg:max-w-screen-xl">
         <Toaster />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}

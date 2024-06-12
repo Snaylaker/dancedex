@@ -4,7 +4,7 @@ import { KeyRound } from "lucide-react";
 
 export default function Example() {
   return (
-    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+    <div className="absolute left-1/2 top-1/2 max-w-fit -translate-x-1/2 -translate-y-1/2 transform">
       <BackDrop />
       <h1 className="scroll-m-20 border-b pb-2  text-4xl font-extrabold tracking-tight lg:text-5xl">
         DanceDex
@@ -23,7 +23,7 @@ export default function Example() {
 
 function BackDrop() {
   return (
-    <>
+    <div className="max-w-32 overflow-hidden">
       <svg
         className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
         aria-hidden="true"
@@ -65,6 +65,6 @@ function BackDrop() {
           }}
         />
       </div>
-    </>
+    </div>
   );
 }
