@@ -61,23 +61,19 @@ export function DanceCard({
   );
 
   return (
-    <Card className="max-w-sm self-start rounded-lg shadow-lg">
+    <Card className="w-full self-start rounded-lg  shadow-lg lg:w-1/3 lg:max-w-sm">
       <video
         playsInline
         preload="metadata"
         controls
-        className=" rounded-t-lg object-cover"
+        className="aspect-video w-full rounded-t-lg object-contain"
       >
         <source src={videoUrl + "#t=0.1"} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <CardContent className="flex h-36 flex-col justify-evenly ">
+      <CardContent className="flex h-36 flex-col gap-4">
         {isEditing ? (
-          <form
-            id="edit-dance"
-            action={editDanceAction}
-            className="flex flex-col justify-evenly"
-          >
+          <form id="edit-dance" action={editDanceAction}>
             <input type="hidden" name="id" value={id} />
             <Input
               type="text"
@@ -97,10 +93,10 @@ export function DanceCard({
             />
           </form>
         ) : (
-          <>
-            <h3 className="text-lg font-medium ">{editTitle}</h3>
+          <div className="px-3 py-1">
+            <h3 className="pb-3 text-lg font-medium">{editTitle}</h3>
             <p className="text-sm">{editDescription}</p>
-          </>
+          </div>
         )}
       </CardContent>
       <CardFooter className="max-h-8 items-center justify-between ">
@@ -122,7 +118,11 @@ export function DanceCard({
                   className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-500"
                   size="icon"
                   variant="ghost"
-                  onClick={() => setIsEditing(false)}
+                  onClick={() => {
+                    setEditTitle(title);
+                    setEditDescription(description);
+                    setIsEditing(false);
+                  }}
                 >
                   <X className="h-5 w-5" />
                 </Button>
