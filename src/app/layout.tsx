@@ -16,7 +16,18 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className="mx-auto w-11/12 font-sans antialiased ">
-        <Toaster position="top-center" reverseOrder={false} />
+        <Toaster
+          toastOptions={{
+            style: {
+              background: "var(--background)",
+              color: "var(--foreground)",
+              border: "1px solid var(--border)",
+              borderRadius: "var(--radius)",
+            },
+          }}
+          position="top-center"
+          reverseOrder={false}
+        />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>
