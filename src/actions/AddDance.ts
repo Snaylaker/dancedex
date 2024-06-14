@@ -6,7 +6,7 @@ import { revalidateTag } from "next/cache";
 import { eq } from "drizzle-orm";
 import { dances } from "../../drizzle/schema";
 
-export async function addDance(values: FormData) {
+export default async function addDance(values: FormData) {
   const video = values.get("video") as File;
   const title = values.get("title") as string;
   const description = values.get("description") as string;

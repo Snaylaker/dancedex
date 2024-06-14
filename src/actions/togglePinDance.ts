@@ -5,7 +5,7 @@ import { revalidateTag } from "next/cache";
 import { eq } from "drizzle-orm";
 import { db } from "@/utils/drizzle/client";
 
-export async function togglePinDance(id: string) {
+export default async function togglePinDance(id: string) {
   const data = await db.select().from(dances).where(eq(dances.id, id));
   const pinned = data[0].pinned;
   try {

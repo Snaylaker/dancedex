@@ -7,7 +7,7 @@ import { revalidateTag } from "next/cache";
 import { createClient } from "@/utils/supabase/server";
 import { getFileStorageUrl } from "@/utils/utils";
 
-export async function deleteDance(id: string) {
+export default async function deleteDance(id: string) {
   try {
     const supabase = createClient();
 
