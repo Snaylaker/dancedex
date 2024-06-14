@@ -1,8 +1,5 @@
 "use client";
 
-import { deleteDance } from "@/actions/deleteDance";
-import { editDance } from "@/actions/editDance";
-import { togglePinDance } from "@/actions/togglePinDance";
 import {
   AlertDialogAction,
   AlertDialogCancel,
@@ -29,6 +26,9 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Dance } from "../../../../drizzle/schema";
+import editDance from "@/actions/editDance";
+import togglePinDance from "@/actions/togglePinDance";
+import deleteDance from "@/actions/deleteDance";
 
 export function DanceCard({
   dance,

@@ -14,7 +14,7 @@ const getURL = () => {
   return url + "auth/callback?next=/dashboard";
 };
 
-export default async function SignIn() {
+export default async function signIn() {
   const supabase = createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
