@@ -19,10 +19,7 @@ export default function RootLayout({
         <Toaster
           toastOptions={{
             style: {
-              background: "var(--background)",
-              color: "var(--foreground)",
-              border: "1px solid var(--border)",
-              borderRadius: "var(--radius)",
+              font: "inherit",
             },
           }}
           position="top-center"
