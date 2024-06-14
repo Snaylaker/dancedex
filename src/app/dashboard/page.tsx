@@ -7,7 +7,7 @@ import { dances } from "../../../drizzle/schema";
 import { DanceCard } from "./_components/danceCard";
 import NoContent from "./_components/noContent";
 import SearchBar from "./_components/searchbar";
-import { toast } from "@/components/ui/use-toast";
+import toast from "react-hot-toast";
 
 interface PageProps {
   params: { slug: string };
@@ -47,10 +47,9 @@ export default async function Page({ params, searchParams }: PageProps) {
                     3600,
                   );
                 if (error || !data) {
-                  toast({
-                    description:
-                      "une erreur est survenue lors de la récupération de la vidéo",
-                  });
+                  toast.error(
+                    "une erreur est survenue lors de la récupération de la vidéo",
+                  );
                   return <></>;
                 }
                 return (

@@ -1,8 +1,8 @@
 "use client";
 
-import { toast } from "@/components/ui/use-toast";
 import { useTransition } from "react";
 import { createClient } from "../supabase/client";
+import toast from "react-hot-toast";
 
 export function usePendingAction(
   action: (formData: any) => Promise<{ success?: string; error?: string }>,
@@ -18,14 +18,8 @@ export function usePendingAction(
         throw new Error("Invalid user");
       }
       const data = await action(formData);
-      data?.error &&
-        toast({
-          description: data.error,
-        });
-      data?.success &&
-        toast({
-          description: data.success,
-        });
+      data?.error && toast.error(data.error);
+      data?.success && toast.error(data.success);
       callback?.();
     });
   }

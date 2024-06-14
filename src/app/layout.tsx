@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "next-themes";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "DanceDex",
@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className="mx-auto w-11/12 font-sans antialiased ">
-        <Toaster />
+        <Toaster position="top-center" reverseOrder={false} />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>
