@@ -1,6 +1,5 @@
 "use client";
-
-import { AddDance as AddDanceAction } from "@/actions/AddDance";
+import { addDance as addDanceAction } from "@/actions/addDance";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -20,7 +19,7 @@ import { useState } from "react";
 export default function AddDance() {
   const [open, setOpen] = useState(false);
 
-  const [isPending, AddingDance] = usePendingAction(AddDanceAction, () => {
+  const [isPending, AddingDance] = usePendingAction(addDanceAction, () => {
     setOpen(false);
   });
 
