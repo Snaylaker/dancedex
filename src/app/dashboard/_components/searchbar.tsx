@@ -9,8 +9,6 @@ export default function SearchBar() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Get a new searchParams string by merging the current
-  // searchParams with a provided key/value pair
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -22,8 +20,8 @@ export default function SearchBar() {
   );
 
   return (
-    <div className="flex flex-col items-center justify-start space-y-4">
-      <div className="scroll-m-20 text-2xl font-semibold tracking-tight">
+    <div className="flex flex-col items-center space-y-4">
+      <div className="text-2xl font-semibold tracking-tight">
         Rechercher une passe par titre
       </div>
       <div className="flex w-full max-w-md items-center rounded-full border border-gray-300 bg-white shadow-sm transition-all duration-300 ease-in-out hover:shadow-lg dark:border-gray-800 dark:bg-gray-950 dark:hover:shadow-2xl">

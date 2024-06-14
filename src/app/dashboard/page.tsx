@@ -7,6 +7,7 @@ import { dances } from "../../../drizzle/schema";
 import { DanceCard } from "./_components/danceCard";
 import NoContent from "./_components/noContent";
 import SearchBar from "./_components/searchbar";
+import { toast } from "@/components/ui/use-toast";
 
 interface PageProps {
   params: { slug: string };
@@ -29,7 +30,7 @@ export default async function Page({ params, searchParams }: PageProps) {
     .orderBy(desc(dances.pinned), asc(dances.createdAt));
 
   return (
-    <main className="mx-auto mt-10 space-y-8">
+    <main className=" mt-10 space-y-8">
       {dancesList.length === 0 ? (
         <NoContent />
       ) : (
@@ -37,27 +38,22 @@ export default async function Page({ params, searchParams }: PageProps) {
           <SearchBar />
           <div className="flex flex-row flex-wrap gap-4">
             {dancesList
-              .filter((element) => element.title?.startsWith(title ?? ""))
+              .filter((dance) => dance.title.startsWith(title ?? ""))
               .map(async (element) => {
                 const { data, error } = await supabase.storage
                   .from("dances")
                   .createSignedUrl(
-                    getFileStorageUrl(userData.user.id, element.fileName!),
+                    getFileStorageUrl(userData.user.id, element.fileName),
                     3600,
                   );
-                if (error) {
-                  console.log(error);
+                if (error || !data) {
+                  toast({
+                    description:
+                      "une erreur est survenue lors de la récupération de la vidéo",
+                  });
+                  return <></>;
                 }
-                return (
-                  <DanceCard
-                    key={element.id}
-                    id={element.id}
-                    title={element.title!}
-                    pinned={element.pinned!}
-                    description={element.description!}
-                    videoUrl={data?.signedUrl!}
-                  />
-                );
+                return <DanceCard dance={element} videoUrl={data.signedUrl} />;
               })}
           </div>
         </>

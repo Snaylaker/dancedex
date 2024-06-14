@@ -10,13 +10,13 @@ export async function addDance(values: FormData) {
   const video = values.get("video") as File;
   const title = values.get("title") as string;
   const description = values.get("description") as string;
-  const supabase = createClient();
 
   if (video.size > 1024 * 1024 * 10) {
     return { error: "La taille de la vidéo est supérieure à 10 Mo" };
   }
 
   try {
+    const supabase = createClient();
     const user = await supabase.auth.getUser();
     const userId = user.data.user?.id;
     if (!userId) {
@@ -30,7 +30,6 @@ export async function addDance(values: FormData) {
     if (userDances.length > 5) {
       return { error: "Vous avez atteint le nombre maximum de danses" };
     }
-
     const filePath = getFileStorageUrl(userId, video.name);
     const { error } = await supabase.storage
       .from("dances")

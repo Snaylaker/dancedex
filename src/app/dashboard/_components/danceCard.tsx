@@ -28,20 +28,16 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
+import { Dance } from "../../../../drizzle/schema";
 
 export function DanceCard({
-  pinned,
-  title,
-  description,
-  id,
+  dance,
   videoUrl,
 }: {
-  pinned: boolean;
-  title: string;
-  id: string;
-  description: string;
+  dance: Dance;
   videoUrl: string;
 }) {
+  const { id, title, description, pinned } = dance;
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(title);
   const [editDescription, setEditDescription] = useState(description);
@@ -61,7 +57,7 @@ export function DanceCard({
   );
 
   return (
-    <Card className="w-full self-start rounded-lg  shadow-lg lg:w-1/3 lg:max-w-sm">
+    <Card className="w-full rounded-lg shadow-lg lg:w-1/3 lg:max-w-sm">
       <video
         playsInline
         preload="metadata"
@@ -93,13 +89,13 @@ export function DanceCard({
             />
           </form>
         ) : (
-          <div className="px-2 py-3  ">
+          <div className="px-2 py-3">
             <h3 className="pb-3 text-lg font-medium">{editTitle}</h3>
             <p className="text-sm">{editDescription}</p>
           </div>
         )}
       </CardContent>
-      <CardFooter className="max-h-8 items-center justify-between ">
+      <CardFooter className="justify-between">
         {isEditing ? (
           <>
             {isPending ? (
