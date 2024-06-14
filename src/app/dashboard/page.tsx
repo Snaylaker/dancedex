@@ -53,7 +53,13 @@ export default async function Page({ params, searchParams }: PageProps) {
                   });
                   return <></>;
                 }
-                return <DanceCard dance={element} videoUrl={data.signedUrl} />;
+                return (
+                  <DanceCard
+                    key={element.id}
+                    dance={element}
+                    videoUrl={data.signedUrl!}
+                  />
+                );
               })}
           </div>
         </>
