@@ -3,6 +3,7 @@ import { db } from "@/utils/drizzle/client";
 import { createClient } from "@/utils/supabase/server";
 import { getFileStorageUrl } from "@/utils/utils";
 import { revalidateTag } from "next/cache";
+import { eq } from "drizzle-orm";
 import { dances } from "../../drizzle/schema";
 
 export async function AddDance(values: FormData) {
@@ -21,6 +22,15 @@ export async function AddDance(values: FormData) {
     if (!userId) {
       return { error: "Invalid user" };
     }
+    const userDances = await db
+      .select()
+      .from(dances)
+      .where(eq(dances.userId, userId));
+
+    if (userDances.length > 10) {
+      return { error: "Vous avez atteint le nombre maximum de danses" };
+    }
+
     const filePath = getFileStorageUrl(userId, video.name);
     const { error } = await supabase.storage
       .from("dances")
@@ -29,6 +39,7 @@ export async function AddDance(values: FormData) {
     if (error) {
       return { error: error.message };
     }
+
     await db.insert(dances).values({
       title: title,
       fileName: video.name,
