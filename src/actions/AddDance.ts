@@ -27,7 +27,7 @@ export async function AddDance(values: FormData) {
       .from(dances)
       .where(eq(dances.userId, userId));
 
-    if (userDances.length > 10) {
+    if (userDances.length > 5) {
       return { error: "Vous avez atteint le nombre maximum de danses" };
     }
 

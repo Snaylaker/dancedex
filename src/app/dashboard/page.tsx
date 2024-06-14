@@ -29,7 +29,7 @@ export default async function Page({ params, searchParams }: PageProps) {
     .orderBy(desc(dances.pinned), asc(dances.createdAt));
 
   return (
-    <main className="mt-10 space-y-8">
+    <main className="mx-auto mt-10 space-y-8">
       {dancesList.length === 0 ? (
         <NoContent />
       ) : (
