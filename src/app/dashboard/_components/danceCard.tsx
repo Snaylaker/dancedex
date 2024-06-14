@@ -93,7 +93,7 @@ export function DanceCard({
             />
           </form>
         ) : (
-          <div className="px-3 py-1">
+          <div className="px-2 py-3  ">
             <h3 className="pb-3 text-lg font-medium">{editTitle}</h3>
             <p className="text-sm">{editDescription}</p>
           </div>

@@ -11,6 +11,10 @@ export async function AddDance(values: FormData) {
   const description = values.get("description") as string;
   const supabase = createClient();
 
+  if (video.size > 1024 * 1024 * 10) {
+    return { error: "La taille de la vidéo est supérieure à 10 Mo" };
+  }
+
   try {
     const user = await supabase.auth.getUser();
     const userId = user.data.user?.id;
