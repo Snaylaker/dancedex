@@ -19,7 +19,7 @@ export function usePendingAction(
       }
       const data = await action(formData);
       data?.error && toast.error(data.error);
-      data?.success && toast.error(data.success);
+      data?.success && toast.success(data.success);
       callback?.();
     });
   }
