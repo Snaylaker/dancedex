@@ -102,14 +102,15 @@ export function DanceCard({
               <Loader className="h-5 w-5 motion-safe:animate-spin" />
             ) : (
               <>
-                <button
+                <Button
                   className="text-green-500 hover:text-green-600 dark:text-green-400 dark:hover:text-green-500"
                   id="save-dance"
                   form="edit-dance"
+                  variant="ghost"
                   type="submit"
                 >
-                  <CheckIcon className="ml-2 h-5 w-5" />
-                </button>
+                  <CheckIcon className=" h-5 w-5" />
+                </Button>
                 <Button
                   className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-500"
                   size="icon"
