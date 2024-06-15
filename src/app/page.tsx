@@ -1,6 +1,6 @@
-import signIn from "@/actions/signIn";
 import { Button } from "@/components/ui/button";
 import { KeyRound } from "lucide-react";
+import { signIn } from "./actions";
 
 export default function Example() {
   return (

@@ -26,9 +26,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Dance } from "../../../../drizzle/schema";
-import editDance from "@/actions/editDance";
-import togglePinDance from "@/actions/togglePinDance";
-import deleteDance from "@/actions/deleteDance";
+import { deleteDance, editDance, togglePinDance } from "@/app/actions";
 
 export function DanceCard({
   dance,

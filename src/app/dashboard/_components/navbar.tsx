@@ -1,5 +1,4 @@
 "use client";
-import signOut from "@/actions/signOut";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,8 +23,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { usePendingAction } from "@/utils/hooks/usePendingAction";
-import addDance from "@/actions/addDance";
 import { Label } from "@/components/ui/label";
+import { addDance, signOut } from "@/app/actions";
 
 export default function NavBar({ user }: { user: User }) {
   const [open, setOpen] = useState(false);
