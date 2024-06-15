@@ -90,8 +90,11 @@ export default function NavBar({ user }: { user: User }) {
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Avatar className="cursor-pointer">
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarImage
+                src={user.user_metadata.avatar_url}
+                alt={user.user_metadata.full_name + " avatar"}
+              />
+              <AvatarFallback>{user.user_metadata.full_name[0]}</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start">

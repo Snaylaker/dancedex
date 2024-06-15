@@ -12,8 +12,9 @@ export default async function RootLayout({
   if (!data.user) {
     redirect("/");
   }
+  console.log(data.user);
   return (
-    <html>
+    <html lang="fr">
       <body>
         <NavBar user={data.user} />
         {children}
