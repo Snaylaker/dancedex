@@ -14,7 +14,7 @@ interface PageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default async function Page({ params, searchParams }: PageProps) {
+export default async function Page({ searchParams }: PageProps) {
   const supabase = createClient();
   const { data: userData } = await supabase.auth.getUser();
   if (!userData.user) {
@@ -56,7 +56,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                   <DanceCard
                     key={element.id}
                     dance={element}
-                    videoUrl={data.signedUrl!}
+                    videoUrl={data.signedUrl}
                   />
                 );
               })}

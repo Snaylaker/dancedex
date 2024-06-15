@@ -46,9 +46,7 @@ export function DanceCard({
   const [isPending, editDanceAction] = usePendingAction(editDance, () =>
     setIsEditing(false),
   );
-
   const [isPinning, pinDanceAction] = usePendingAction(togglePinDance);
-
   const [isDeletionPending, deleteDanceAction] = usePendingAction(
     deleteDance,
     () => {

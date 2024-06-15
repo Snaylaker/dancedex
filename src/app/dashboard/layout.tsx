@@ -13,7 +13,7 @@ export default async function RootLayout({
     redirect("/");
   }
   return (
-    <html lang="fr">
+    <html>
       <body>
         <NavBar user={data.user} />
         {children}
