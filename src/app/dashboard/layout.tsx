@@ -12,7 +12,6 @@ export default async function RootLayout({
   if (!data.user) {
     redirect("/");
   }
-  console.log(data.user);
   return (
     <html lang="fr">
       <body>
