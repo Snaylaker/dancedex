@@ -72,3 +72,5 @@ export const dances = pgTable("dances", {
   pinned: boolean("pinned").default(false).notNull(),
 });
 
+export type Dance = typeof dances.getModelType();
+
