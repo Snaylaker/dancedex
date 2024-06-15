@@ -7,8 +7,6 @@ import { eq } from "drizzle-orm";
 import { dances } from "../../drizzle/schema";
 import { redirect } from "next/navigation";
 
-const supabase = createClient();
-
 export async function addDance(values: FormData) {
   const video = values.get("video") as File;
   const title = values.get("title") as string;
@@ -19,6 +17,7 @@ export async function addDance(values: FormData) {
   }
 
   try {
+    const supabase = createClient();
     const user = await supabase.auth.getUser();
     const userId = user.data.user?.id;
     if (!userId) {
@@ -55,6 +54,7 @@ export async function addDance(values: FormData) {
 }
 export async function deleteDance(id: string) {
   try {
+    const supabase = createClient();
     const user = await supabase.auth.getUser();
     const userId = user.data.user?.id;
     if (!userId) {
@@ -99,6 +99,7 @@ export async function editDance(values: FormData) {
 }
 
 export async function signIn() {
+  const supabase = createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
@@ -113,6 +114,7 @@ export async function signIn() {
 }
 
 export async function signOut() {
+  const supabase = createClient();
   await supabase.auth.signOut();
   redirect("/");
 }
